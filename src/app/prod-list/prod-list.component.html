@@ -1,0 +1,25 @@
+<h2 style="margin-top: -5%;"> Produit List</h2>
+<table class = "table table-striped">
+    <thead>
+        <tr>
+            <th> Nom</th>
+            <th> Prix </th>
+            <th> Quantité</th>
+            <th> Actions </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let Prod of produits" >
+            <td> {{ Prod.nom }} </td>
+            <td> {{ Prod.prix}} </td>
+            <td> {{ Prod.quantite }} </td>
+             <td>
+                <button (click) = "updateProduit(Prod.id)" class = "btn btn-info"> Update</button>
+                <button (click) = "deleteProduit(Prod.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
+               
+               
+
+            </td>
+        </tr>
+    </tbody>
+</table>
