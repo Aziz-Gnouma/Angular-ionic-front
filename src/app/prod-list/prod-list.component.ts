@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class ProdListComponent implements OnInit {
 
-  produits: Prod[] = [];
+  produits: any;
+  nom!: string;
+  searchText = '';
 
   constructor(private ProdService: ProdService,
     private router: Router ) {}
@@ -34,4 +36,10 @@ export class ProdListComponent implements OnInit {
       this.getProduits();
     })
   }
+   getProduitsbyNom(){
+    this.ProdService.getProduitByNom(this.nom).subscribe(data => {
+      this.produits = data;
+    });
+  }
+  
 }

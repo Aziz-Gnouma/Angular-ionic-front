@@ -9,6 +9,7 @@ import { Prod } from './prod';
 export class ProdService {
 
   private baseURL = "http://localhost:8090/api/v1/Produits";
+  private FURL = "http://localhost:8090/api/v1/findProduits/";
 
   constructor(private httpClient: HttpClient) { }
   
@@ -28,5 +29,8 @@ export class ProdService {
 
   deleteProduit(id: number): Observable<Object>{
     return this.httpClient.delete(`${this.baseURL}/${id}`);
+  }
+  getProduitByNom(nom: string): Observable<Prod>{
+    return this.httpClient.get<Prod>(`${this.FURL}/${nom}`);
   }
 }

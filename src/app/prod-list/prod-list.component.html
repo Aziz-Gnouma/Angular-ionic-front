@@ -1,4 +1,6 @@
-<h2 style="margin-top: -5%;"> Produit List</h2>
+<h2 style="margin-top: -5%;"> Product List</h2><br>
+<input class="form-control" type="text" placeholder="Search by name" [(ngModel)]="searchText">
+<br>
 <table class = "table table-striped">
     <thead>
         <tr>
@@ -9,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor = "let Prod of produits" >
+        <tr *ngFor = "let Prod of produits | search: searchText" >
             <td> {{ Prod.nom }} </td>
             <td> {{ Prod.prix}} </td>
             <td> {{ Prod.quantite }} </td>
