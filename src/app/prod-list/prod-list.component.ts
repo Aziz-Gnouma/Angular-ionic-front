@@ -31,8 +31,10 @@ export class ProdListComponent implements OnInit {
   }
 
   deleteProduit(id: number){
+    
     this.ProdService.deleteProduit(id).subscribe( data => {
       console.log(data);
+      
       this.getProduits();
     })
   }

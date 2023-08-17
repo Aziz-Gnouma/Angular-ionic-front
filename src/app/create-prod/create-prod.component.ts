@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
+
 import { Prod } from '../prod';
 import { ProdService } from '../prod.service';
 import { Router } from '@angular/router';
@@ -8,30 +10,42 @@ import { Router } from '@angular/router';
   templateUrl: './create-prod.component.html',
   styleUrls: ['./create-prod.component.css']
 })
-
 export class CreateProdComponent implements OnInit {
 
-  Prod: Prod = new Prod();
-  constructor(private ProdService:ProdService ,
-    private router: Router) { }
+  prodForm: FormGroup; 
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private prodService: ProdService,
+    private router: Router
+  ) {
+    
+    this.prodForm = this.formBuilder.group({
+      nom: ['', Validators.required], 
+      prix: ['', [Validators.required, Validators.min(1)]], 
+      quantite: ['', [Validators.required, Validators.min(0), Validators.max(1000)]], 
+    });
+  }
 
   ngOnInit(): void {
   }
 
-  saveProduit(){
-    this.ProdService.createProduit(this.Prod).subscribe( data =>{
+  saveProduit() {
+    this.prodService.createProduit(this.prodForm.value).subscribe(data => {
       console.log(data);
       this.goToEProdList();
     },
-    error => console.log(error));
+      error => console.log(error));
   }
 
-  goToEProdList(){
+  goToEProdList() {
     this.router.navigate(['/Produits']);
   }
-  
-  onSubmit(){
-    console.log(this.Prod);
-    this.saveProduit();
+
+  onSubmit() {
+    if (this.prodForm.valid) {
+      console.log(this.prodForm.value);
+      this.saveProduit();
+    }
   }
 }

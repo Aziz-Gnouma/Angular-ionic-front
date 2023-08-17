@@ -1,27 +1,21 @@
-<h2 style="margin-top: -5%;"> Product List</h2><br>
-<input class="form-control" type="text" placeholder="Search by Name" [(ngModel)]="searchText">
-<br>
-<table class = "table table-striped">
-    <thead>
-        <tr>
-            <th> Nom</th>
-            <th> Prix </th>
-            <th> Quantité</th>
-            <th> Actions </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor = "let Prod of produits | search: searchText" >
-            <td> {{ Prod.nom }} </td>
-            <td> {{ Prod.prix}} </td>
-            <td> {{ Prod.quantite }} </td>
-             <td>
-                <button (click) = "updateProduit(Prod.id)" class = "btn btn-info"> Update</button>
-                <button (click) = "deleteProduit(Prod.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button>
-               
-               
-
-            </td>
-        </tr>
-    </tbody>
-</table>
+<ion-card>
+    <ion-card-header>
+      <ion-card-title style="margin-top: -5%;">Product List</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-searchbar [(ngModel)]="searchText" placeholder="Search by Name"></ion-searchbar>
+      <ion-list>
+        <ion-item *ngFor="let Prod of produits | search: searchText">
+          <ion-label>
+            <h2>{{ Prod.nom }}</h2>
+            <p>Prix: {{ Prod.prix }}</p>
+            <p>Quantité: {{ Prod.quantite }}</p>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button (click)="updateProduit(Prod.id)" color="primary">Update</ion-button>
+            <ion-button (click)="deleteProduit(Prod.id)" color="danger">Delete</ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>

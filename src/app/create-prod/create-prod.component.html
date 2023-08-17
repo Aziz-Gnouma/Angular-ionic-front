@@ -1,26 +1,51 @@
-<div class="col-md-6 offset-md-3">
-    <h3> Create Produit </h3>
-    <form (ngSubmit) = "onSubmit()">
-    
-        <div class="form-group">
-            <label>Nom Produit </label>
-            <input type="text" class ="form-control" id = "firstName"
-                [(ngModel)] = "Prod.nom" name = "Nom">
-        </div>
-    
-        <div class="form-group">
-            <label>Prix</label>
-            <input type="text" class ="form-control" id = "Prix"
-                [(ngModel)] = "Prod.prix" name = "lastName">
-        </div>
-    
-        <div class="form-group">
-            <label>Quantité</label>
-            <input type="text" class ="form-control" id = "quantite"
-                [(ngModel)] = "Prod.quantite" name = "emailId">
-        </div><br>
-    
-        <button class = "btn btn-success" type ="submit">Submit</button>
-    
-    </form>
-    </div> 
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" offset="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Create Produit</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <form [formGroup]="prodForm" (ngSubmit)="onSubmit()">
+
+              <ion-item>
+                <ion-label position="floating">Nom Produit</ion-label>
+                <ion-input type="text" formControlName="nom"></ion-input>
+              </ion-item>
+              <!-- Display error messages for the "nom" field -->
+              <ion-note *ngIf="prodForm.get('nom')?.invalid && (prodForm.get('nom')?.dirty || prodForm.get('nom')?.touched)" color="warning">
+                <ng-container *ngIf="prodForm.get('nom')?.hasError('required')">Nom Produit is required.</ng-container>
+              </ion-note>
+
+              <ion-item>
+                <ion-label position="floating">Prix</ion-label>
+                <ion-input type="number" formControlName="prix" min="1"></ion-input>
+              </ion-item>
+              <!-- Display error messages for the "prix" field -->
+              <ion-note *ngIf="prodForm.get('prix')?.invalid && (prodForm.get('prix')?.dirty || prodForm.get('prix')?.touched)" color="warning">
+                <ng-container *ngIf="prodForm.get('prix')?.hasError('required')">Prix is required.</ng-container>
+                <ng-container *ngIf="prodForm.get('prix')?.hasError('min')">Prix should be greater than or equal to 1.</ng-container>
+              </ion-note>
+
+              <ion-item>
+                <ion-label position="floating">Quantité</ion-label>
+                <ion-input type="number" formControlName="quantite" min="0" max="1000"></ion-input>
+              </ion-item>
+              <!-- Display error messages for the "quantite" field -->
+              <ion-note *ngIf="prodForm.get('quantite')?.invalid && (prodForm.get('quantite')?.dirty || prodForm.get('quantite')?.touched)" color="warning">
+                <ng-container *ngIf="prodForm.get('quantite')?.hasError('required')">Quantité is required.</ng-container>
+                <ng-container *ngIf="prodForm.get('quantite')?.hasError('min')">Quantité should be greater than or equal to 0.</ng-container>
+                <ng-container *ngIf="prodForm.get('quantite')?.hasError('max')">Quantité should be less than or equal to 1000.</ng-container>
+              </ion-note>
+
+              <ion-button expand="full" type="submit" [disabled]="!prodForm.valid">Submit</ion-button>
+
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+

@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: 'Produits', component: ProdListComponent},
   {path: 'create-Produit', component: CreateProdComponent},
   {path: 'update-produit/:id', component: UpdateProdComponent},
-  {path: '', redirectTo: 'Produits', pathMatch: 'full'},
+  {path: '', redirectTo: '', pathMatch: 'full'},
  
 ];
 
